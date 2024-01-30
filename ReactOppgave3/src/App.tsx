@@ -1,10 +1,11 @@
 
 import './App.css'
 import { Button } from './Components/Button/Button'
+import { NavBar } from './Components/NavBar/NavBar'
 
 function App() {
   return(
-    <Button onClick={undefined} buttonText="Button" buttonType='Link'></Button>
+    <NavBar></NavBar>
   )
 }
 

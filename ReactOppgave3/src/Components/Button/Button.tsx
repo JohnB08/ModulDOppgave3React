@@ -4,7 +4,7 @@ import Style from "./Button.module.css"
 
 
 interface ButtonProps {
-    buttonType: "Filled" | "Link",
+    buttonType: "Filled" | "Link"| "none",
     buttonText: string | ReactElement,
     onClick: Function | undefined
 }

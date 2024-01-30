@@ -3,3 +3,8 @@
   --darkMode: #18303A;
   --accent: #1F702B;
 }
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}

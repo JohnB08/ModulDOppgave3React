@@ -1,0 +1,11 @@
+.NavBar{
+    width: 64rem;
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--lightMode);
+}
+.NavButtonContainer{
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
