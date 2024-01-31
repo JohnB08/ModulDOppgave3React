@@ -1,0 +1,21 @@
+.NameInputContainer, .OrgNrInputContainer{
+    display: flex;
+    max-width: 50rem;
+    justify-content: space-between;
+    align-items: center;
+}
+.FilterContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem 0;
+    border-bottom: 0.25rem solid var(--accent);
+}
+.FilterContainer h3{
+    font-size: 1.125rem;
+}
+.FilterInputs{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}

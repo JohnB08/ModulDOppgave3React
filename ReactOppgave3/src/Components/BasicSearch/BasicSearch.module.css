@@ -1,0 +1,10 @@
+.BasicSearch{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem 0;
+    border-bottom: 0.25rem solid var(--accent);
+}
+.BasicSearch h3{
+    font-size: 1.125rem;
+}

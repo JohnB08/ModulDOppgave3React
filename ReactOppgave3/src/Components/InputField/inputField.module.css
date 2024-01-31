@@ -1,0 +1,20 @@
+.InputField{
+    background-color: var(--lightMode);
+    border: none;
+    border-bottom: 0.25rem solid var(--accent);
+    font-size: 1.125rem;
+    padding: 0.25rem 0.125rem;
+}
+.InputField:focus{
+    outline: none;
+}
+.InputField:hover{
+    cursor: pointer;
+}
+
+.InputLabel{
+    display: flex;
+    width: 75%;
+    font-size: 1.125rem;
+    justify-content: space-between;
+}

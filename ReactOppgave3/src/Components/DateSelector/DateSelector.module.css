@@ -1,0 +1,19 @@
+.DateInput{
+    color: var(--darkMode);
+    background-color: var(---lightMode);
+    border: none;
+    border-bottom: solid 0.25rem var(--accent);
+    font-size: 1.125rem;
+}
+.DateInput:focus{
+    outline: none;
+}
+.DateInput:hover{
+    cursor: pointer;
+}
+.InputLabel{
+    display: flex;
+    font-size: 1.125rem;
+    width: 50%;
+    justify-content: space-between;
+}

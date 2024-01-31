@@ -1,0 +1,21 @@
+.Selector{
+    width: 16rem;
+    border: none;
+    border-bottom: solid var(--accent) 0.25rem;
+    color: var(--darkMode);
+    background-color: var(--lightMode);
+    font-size: 1.125rem;
+}
+.Selector:focus{
+    outline: none;
+}
+.Selector:hover{
+    cursor: pointer;
+}
+.SelectorLabel{
+    display:flex;
+    width: 50%;
+    justify-content: space-between;
+    font-size: 1.125rem;
+    color: var(--darkMode)
+}

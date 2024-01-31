@@ -1,12 +1,12 @@
 
-import { JSXElementConstructor, ReactElement } from "react"
+import {  MouseEventHandler, ReactElement } from "react"
 import Style from "./Button.module.css"
 
 
 interface ButtonProps {
     buttonType: "Filled" | "Link"| "none",
     buttonText: string | ReactElement,
-    onClick: Function | undefined
+    onClick: MouseEventHandler | undefined
 }
 
 /**
@@ -18,8 +18,7 @@ export const Button = ({buttonType, buttonText, onClick}: ButtonProps) =>{
     const classNames = ["button", buttonType]
     const adjustedClassNames = classNames.map(name=>{return Style[name]
     }).join(" ")
-    console.log(adjustedClassNames)
 return (
-    <button onClick={()=>onClick} className={adjustedClassNames}>{buttonText}</button>
+    <button onClick={onClick} className={adjustedClassNames}>{buttonText}</button>
 )
 }
