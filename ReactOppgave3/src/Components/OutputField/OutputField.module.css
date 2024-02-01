@@ -1,0 +1,15 @@
+.ContentTable{
+    width: 100%;
+}
+th, td{
+    padding: 1rem;
+}
+.ButtonContainer{
+    display: flex;
+    justify-content: space-between;
+}
+.StartAndPrev, .NextAndEnd{
+    display: flex;
+    width: 20%;
+    justify-content: space-between;
+}

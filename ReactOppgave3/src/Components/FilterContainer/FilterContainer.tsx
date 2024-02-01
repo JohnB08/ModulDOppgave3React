@@ -12,10 +12,11 @@ interface FilterProps{
     onChangeHandlerDateFrom: ChangeEventHandler | undefined
     onChangeHandlerInputField: ChangeEventHandler | undefined
     onSelectHandler: FormEventHandler | undefined
+    SelectedKommune: string | undefined
 }
 
 
-export const FilterContainer = ({onClickSearch, onClickReset, onChangeHandlerDateTo, onChangeHandlerDateFrom, onChangeHandlerInputField, onSelectHandler}: FilterProps) =>{
+export const FilterContainer = ({onClickSearch, onClickReset, onChangeHandlerDateTo, onChangeHandlerDateFrom, onChangeHandlerInputField, onSelectHandler, SelectedKommune}: FilterProps) =>{
     return(
         <div className={Style.FilterContainer}>
             <h3>Avansert søk, med valgfri filtrering: </h3>
@@ -25,7 +26,7 @@ export const FilterContainer = ({onClickSearch, onClickReset, onChangeHandlerDat
                 <Button buttonType="Filled" buttonText={"Reset"} onClick={onClickReset}></Button>
             </div>
             <div className={Style.FilterInputs}>
-                <KommuneOption onSelectChangeHandler={onSelectHandler}></KommuneOption>
+                <KommuneOption onSelectChangeHandler={onSelectHandler} SelectedKommune={SelectedKommune}></KommuneOption>
                 <DateSelector toOrFrom="from" onChangeFunction={onChangeHandlerDateFrom}></DateSelector>
                 <DateSelector toOrFrom="to" onChangeFunction={onChangeHandlerDateTo}></DateSelector>
             </div>
