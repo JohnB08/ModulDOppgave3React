@@ -20,6 +20,7 @@ export default function App() {
     isError: boolean
     errorMessage: string|undefined
   }
+  const emptyError: errorMessage = {isError: false, errorMessage: ""}
 
   const [name, setName] = useState<string|undefined>("")
   const [orgnr, setOrgNr] = useState<string|undefined>()
@@ -27,9 +28,9 @@ export default function App() {
   const [endDate, setEndDate] = useState<string|undefined>("")
   const [kommuneCode, setKommuneCode] = useState<string|undefined>("")
   const [pageState, setPageState] = useState<string|undefined>("Home")
-  const [inputError, setInputError] = useState<errorMessage>({isError: false, errorMessage: ""})
-  const [nameInputError, setNameInputError] = useState<errorMessage>({isError: false, errorMessage: ""})
-  const [orgInputError, setOrgInputError] = useState<errorMessage>({isError: false, errorMessage: ""})
+  const [inputError, setInputError] = useState<errorMessage>(emptyError)
+  const [nameInputError, setNameInputError] = useState<errorMessage>(emptyError)
+  const [orgInputError, setOrgInputError] = useState<errorMessage>(emptyError)
   const mainUrl = "https://data.brreg.no/enhetsregisteret/api/enheter?size=10"
   const [url, setUrl] = useState(mainUrl)
   const {data, error, isLoading} = useFetchApi<MainData>(url, undefined)
@@ -46,7 +47,7 @@ export default function App() {
     let potInput = event.target.value
     if (potInput.length > 180) return
     let needClean = sanitizeList.test(potInput)
-    needClean ? setInputError({isError: true, errorMessage: "Contains illegal Characters"}) : parseInt(potInput) ? newOrgNr(event) : (setName(potInput), setInputError({isError: false, errorMessage: ""}))
+    needClean ? setInputError({isError: true, errorMessage: "Contains illegal Characters"}) : parseInt(potInput) ? newOrgNr(event) : (setName(potInput), setInputError(emptyError))
   }
 
   /**
@@ -56,7 +57,7 @@ export default function App() {
   const newName = (event: ChangeEvent<HTMLInputElement>) =>{
     let potNewName = event.target.value
     let needClean = sanitizeList.test(potNewName)
-    needClean ? setNameInputError({isError: true, errorMessage: "Contains illegal Characters"}) : (setName(potNewName), setNameInputError({isError: false, errorMessage: ""}))
+    needClean ? setNameInputError({isError: true, errorMessage: "Contains illegal Characters"}) : (setName(potNewName), setNameInputError(emptyError))
   }
   /**
    * Oppdaterer orgnr basert på inputfelt
@@ -66,9 +67,9 @@ export default function App() {
   let potOrgNr = event.target.value
   if (pageState === "Home")
   {
-    potOrgNr.length === 9 ? (setOrgNr(potOrgNr), setInputError({isError: false, errorMessage: ""}) ): setInputError({isError: true, errorMessage: "Make sure OrgNr is exacly 9 numbers long"})
+    potOrgNr.length === 9 ? (setOrgNr(potOrgNr), setInputError(emptyError) ): setInputError({isError: true, errorMessage: "Make sure OrgNr is exacly 9 numbers long"})
   } else {
-    potOrgNr.length === 9 ? (setOrgNr(potOrgNr), setOrgInputError({isError: false, errorMessage: ""}) ): setOrgInputError({isError: true, errorMessage: "Make sure OrgNr is exacly 9 numbers long"})
+    potOrgNr.length === 9 ? (setOrgNr(potOrgNr), setOrgInputError(emptyError) ): setOrgInputError({isError: true, errorMessage: "Make sure OrgNr is exacly 9 numbers long"})
   }
   }
 
