@@ -5,7 +5,7 @@ import { Button } from './Components/Button/Button'
 import { FilterContainer } from './Components/FilterContainer/FilterContainer'
 import { NavBar } from './Components/NavBar/NavBar'
 import { OutputField } from './Components/OutputField/OutputField'
-import { useFetchApi } from './customHooks/fetchApi'
+import { useFetchApi } from './CustomHooks/fetchApi'
 import { ChangeEvent, useState } from 'react'
 
 export default function App() {
