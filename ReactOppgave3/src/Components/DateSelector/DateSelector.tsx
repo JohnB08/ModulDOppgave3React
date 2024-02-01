@@ -6,6 +6,11 @@ interface DateProps{
     onChangeFunction: ChangeEventHandler | undefined
 }
 
+/**
+ * Date selector. blir brukt for å sette fra eller til dato i query.
+ * @param param0 
+ * @returns 
+ */
 export const DateSelector = ({toOrFrom, onChangeFunction}: DateProps) =>{
     return(
     <label className={Style.InputLabel}> {(toOrFrom === "to") ? "Til StiftelsesDato: " : "Fra StiftelsesDato: "}

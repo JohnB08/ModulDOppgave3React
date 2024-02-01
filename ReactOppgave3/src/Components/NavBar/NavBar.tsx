@@ -9,6 +9,11 @@ interface NavBarProps{
     advancedSearchHandler: MouseEventHandler | undefined
 }
 
+/**
+ * navbar med logo og tre knapper. Jeg har ikke rukket å implementere Search History funksjonalitet, så det blir et utvidet prosjekt.
+ * @param param0 
+ * @returns 
+ */
 export const NavBar = ({homeBtnHandler, advancedSearchHandler}: NavBarProps) =>{
     return(
         <div className={Style.NavBar}>

@@ -24,7 +24,11 @@ interface FilterProps{
     }
 }
 
-
+/**
+ * Kontainer som inneholder avansert filterfunksjonalitet. 
+ * @param param0 
+ * @returns 
+ */
 export const FilterContainer = ({onClickSearch, onClickReset, onChangeHandlerDateTo, onChangeHandlerDateFrom, onChangeHandlerInputFieldName, onChangeHandlerInputFieldOrgNr,  onSelectHandler, SelectedKommune, nameInputError, orgInputError}: FilterProps) =>{
     return(
         <div className={Style.FilterContainer}>

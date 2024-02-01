@@ -10,7 +10,7 @@ interface ButtonProps {
 }
 
 /**
- * 
+ * Knapp, har tre forskjellige stylinger basert på bruk.
  * @param buttonType,  velger class basert på input
  * @returns 
  */

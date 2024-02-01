@@ -14,9 +14,15 @@ interface BasicSearchProp{
     }
 }
 
+/**
+ * Home page basic search. Har kun input og søke knapp. 
+ * @param param0 
+ * @returns 
+ */
 export const BasicSearch = ({onChangeInputField, onClickHandler, inputError}: BasicSearchProp)=>{
     return(
         <>
+        <h1>Søk på bedrifter nær deg!</h1>
         <div className={Style.BasicSearch}>
         <h3>Enkelt søk med Organisasjonsnavn, eller Organisasjonsnr: </h3>
         <div className={Style.SearchContainer}>

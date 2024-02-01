@@ -10,7 +10,11 @@ interface OptionProps{
     onSelectChangeHandler: FormEventHandler | undefined
 }
 
-
+/**
+ * Dropdown med kommunenavn i alfabetisk rekkefølge, hver option har en value tilsvarende kommunekoden.
+ * @param param0 
+ * @returns 
+ */
 export const KommuneOption = ({onSelectChangeHandler, SelectedKommune}: OptionProps) =>{
         return(
         <>

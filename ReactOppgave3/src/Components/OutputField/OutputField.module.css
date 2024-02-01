@@ -16,7 +16,7 @@ th, td{
 .BedriftsData{
     display: flex;
     flex-direction: column;
-    width: 100%;
+    max-width: 30rem;
     gap: 0.5rem;
     padding: 1rem 0;
 }

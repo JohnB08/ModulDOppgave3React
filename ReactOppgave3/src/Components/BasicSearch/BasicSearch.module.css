@@ -5,6 +5,11 @@
     padding: 2rem 0;
     border-bottom: 0.25rem solid var(--accent);
 }
+h1{
+margin-top: 4rem;
+margin-bottom: 4rem;
+text-align: center;
+}
 .BasicSearch h3{
     font-size: 1.125rem;
 }

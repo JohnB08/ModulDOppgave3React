@@ -11,6 +11,12 @@ interface InputProps{
     }
 }
 
+
+/**
+ * En inputfield som blir brukt både for nummer og tall. Sterilisering av data blir gjort av onchangefunction og error.
+ * @param param0 
+ * @returns 
+ */
 export const InputField = ({placeholder = undefined, name = undefined, onChangeFunction, error = {isError: false, errorMessage: undefined}}:InputProps) =>{
 
     return(

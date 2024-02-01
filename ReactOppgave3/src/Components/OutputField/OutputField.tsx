@@ -65,6 +65,12 @@ interface OutputProps {
     prevHandlerFunction: MouseEventHandler | undefined
     endHandlerFunction: MouseEventHandler | undefined
 }
+
+/**
+ * Displayer litt mer detaljert info om bedriften. Blir displayet i table når bruker trykker på navnet i table.
+ * @param data 
+ * @returns 
+ */
 const displayBedriftInfo = (data:BedriftData) =>{
         return (
             <div className={Style.BedriftsData}>
@@ -77,7 +83,11 @@ const displayBedriftInfo = (data:BedriftData) =>{
         )
     }
 
-
+/**
+ * Displayer et enkelt table med organisasjonsnr og navn og postadresse. bruker kan trykke på navnet for å få opp mer info om bedrift.
+ * @param param0 
+ * @returns 
+ */
 export const OutputField = ({data, startHandlerFunction, prevHandlerFunction, nextHandlerFunction, endHandlerFunction}: OutputProps) =>{
     const [displayCurrentBedrift, setDisplay] = useState("")
 
