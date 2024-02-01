@@ -1,4 +1,6 @@
 import {FormEventHandler} from "react"
+/* Valgte å bruke en json fil her, for denne endres kun årlig.
+synes det da er bedre å ha den statisk tilgjengelig, enn at client skal fetche fra ssb api hver gang. */
 import data from "../../Data/Kommuneliste.json"
 import Style from "./KommuneOption.module.css"
 
@@ -15,7 +17,7 @@ export const KommuneOption = ({onSelectChangeHandler, SelectedKommune}: OptionPr
         <label className={Style.SelectorLabel}> Velg Kommune:
         <select className={Style.Selector} value={SelectedKommune} onChange={onSelectChangeHandler}>
             <option value="">--Velg Kommune--</option>
-            {data ? data.classificationItems.map((entry, i)=>{
+            {data ? data.map((entry, i)=>{
                 return <option value={entry.code} key={i}>{entry.name}</option>
             }) : null}
         </select>

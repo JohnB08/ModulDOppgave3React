@@ -11,7 +11,16 @@ const fetchApi = async(url) =>{
 
 const fetchAndWrite = async() =>{
     const fetchedData = await fetchApi(url)
-    fs.writeFileSync(filePath, JSON.stringify(fetchedData))
+    const sanitizedData = []
+    fetchedData.classificationItems.forEach(entry=>{
+        const kommuneData = {
+            name: entry.name,
+            code: entry.code
+        }
+        sanitizedData.push(kommuneData)
+    })
+    const sortedData = sanitizedData.sort(function(a,b){return a.name.localeCompare(b.name)})
+    fs.writeFileSync(filePath, JSON.stringify(sortedData))
 }
 
 await fetchAndWrite()
