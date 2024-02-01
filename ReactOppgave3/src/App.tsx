@@ -1,5 +1,6 @@
 
 import './App.css'
+import { errorMessage, MainData } from './Types/Types'
 import { BasicSearch } from './Components/BasicSearch/BasicSearch'
 import { FilterContainer } from './Components/FilterContainer/FilterContainer'
 import { NavBar } from './Components/NavBar/NavBar'
@@ -10,16 +11,6 @@ import { ChangeEvent, useState } from 'react'
 export default function App() {
 
 
-  interface MainData{
-    _embedded: any
-    _links: any
-    page: any
-  }
-
-  type errorMessage = {
-    isError: boolean
-    errorMessage: string|undefined
-  }
   const emptyError: errorMessage = {isError: false, errorMessage: ""}
 
   const [name, setName] = useState<string|undefined>("")

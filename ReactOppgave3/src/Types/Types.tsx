@@ -20,6 +20,17 @@ export interface DateProps{
     onChangeFunction: ChangeEventHandler | undefined
 }
 
+export interface MainData{
+    _embedded: any
+    _links: any
+    page: any
+  }
+
+export type errorMessage = {
+    isError: boolean
+    errorMessage: string|undefined
+  }
+
 export interface FilterProps{
     onClickSearch: MouseEventHandler | undefined
     onClickReset: MouseEventHandler | undefined
