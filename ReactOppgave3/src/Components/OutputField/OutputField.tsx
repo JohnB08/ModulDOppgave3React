@@ -65,11 +65,7 @@ interface OutputProps {
     prevHandlerFunction: MouseEventHandler | undefined
     endHandlerFunction: MouseEventHandler | undefined
 }
-
-
-export const OutputField = ({data, startHandlerFunction, prevHandlerFunction, nextHandlerFunction, endHandlerFunction}: OutputProps) =>{
-    const [displayCurrentBedrift, setDisplay] = useState("")
-    const displayBedriftInfo = (data:BedriftData) =>{
+const displayBedriftInfo = (data:BedriftData) =>{
         return (
             <div className={Style.BedriftsData}>
                 <h2>{data.navn}</h2>
@@ -80,6 +76,10 @@ export const OutputField = ({data, startHandlerFunction, prevHandlerFunction, ne
             </div>
         )
     }
+
+
+export const OutputField = ({data, startHandlerFunction, prevHandlerFunction, nextHandlerFunction, endHandlerFunction}: OutputProps) =>{
+    const [displayCurrentBedrift, setDisplay] = useState("")
 
     return (
         <>
