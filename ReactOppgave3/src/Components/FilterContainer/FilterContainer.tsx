@@ -1,28 +1,9 @@
-import { ChangeEventHandler, FormEventHandler, MouseEventHandler } from "react"
+import { FilterProps } from "../../Types/Types"
 import { Button } from "../Button/Button"
 import { DateSelector } from "../DateSelector/DateSelector"
 import { InputField } from "../InputField/InputField"
 import { KommuneOption } from "../KommuneOption/KommuneOption"
 import Style from "./FilterContainer.module.css"
-
-interface FilterProps{
-    onClickSearch: MouseEventHandler | undefined
-    onClickReset: MouseEventHandler | undefined
-    onChangeHandlerDateTo: ChangeEventHandler | undefined
-    onChangeHandlerDateFrom: ChangeEventHandler | undefined
-    onChangeHandlerInputFieldName: ChangeEventHandler | undefined
-    onChangeHandlerInputFieldOrgNr: ChangeEventHandler | undefined
-    onSelectHandler: FormEventHandler | undefined
-    SelectedKommune: string | undefined
-    nameInputError: {
-        isError: boolean
-        errorMessage: string | undefined
-    }
-      orgInputError: {
-        isError: boolean
-        errorMessage: string | undefined
-    }
-}
 
 /**
  * Kontainer som inneholder avansert filterfunksjonalitet. 

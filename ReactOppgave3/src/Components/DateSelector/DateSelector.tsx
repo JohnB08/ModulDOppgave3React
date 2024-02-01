@@ -1,10 +1,5 @@
-import { ChangeEventHandler } from "react"
+import { DateProps } from "../../Types/Types"
 import Style from "./DateSelector.module.css"
-
-interface DateProps{
-    toOrFrom: "to" | "from"
-    onChangeFunction: ChangeEventHandler | undefined
-}
 
 /**
  * Date selector. blir brukt for å sette fra eller til dato i query.

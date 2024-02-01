@@ -1,18 +1,11 @@
-import { ChangeEventHandler, MouseEventHandler } from "react"
+import { BasicSearchProp } from "../../Types/Types"
 import { InputField } from "../InputField/InputField"
 import Style from "./BasicSearch.module.css"
 import { Button } from "../Button/Button"
 
 
 
-interface BasicSearchProp{
-    onChangeInputField: ChangeEventHandler | undefined,
-    onClickHandler: MouseEventHandler | undefined
-    inputError: {
-        isError: boolean
-        errorMessage: string|undefined
-    }
-}
+
 
 /**
  * Home page basic search. Har kun input og søke knapp. 

@@ -1,15 +1,7 @@
-import { ChangeEventHandler } from "react"
+import { InputProps } from "../../Types/Types"
 import Style from "./inputField.module.css"
 
-interface InputProps{
-    placeholder: string | undefined
-    name: string | undefined
-    onChangeFunction: ChangeEventHandler | undefined
-    error: {
-        isError: boolean
-        errorMessage: string|undefined
-    }
-}
+
 
 
 /**

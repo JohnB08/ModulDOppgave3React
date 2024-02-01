@@ -1,13 +1,7 @@
-import { MouseEventHandler } from "react"
+import { NavBarProps } from "../../Types/Types"
 import { Button } from "../Button/Button"
 import { Logo } from "../Logo/Logo"
 import Style from "./NavBar.module.css"
-
-
-interface NavBarProps{
-    homeBtnHandler: MouseEventHandler | undefined
-    advancedSearchHandler: MouseEventHandler | undefined
-}
 
 /**
  * navbar med logo og tre knapper. Jeg har ikke rukket å implementere Search History funksjonalitet, så det blir et utvidet prosjekt.

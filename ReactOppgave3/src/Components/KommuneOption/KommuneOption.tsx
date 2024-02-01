@@ -1,14 +1,11 @@
-import {FormEventHandler} from "react"
+import { OptionProps } from "../../Types/Types"
 /* Valgte å bruke en json fil her, for denne endres kun årlig.
 synes det da er bedre å ha den statisk tilgjengelig, enn at client skal fetche fra ssb api hver gang. */
 import data from "../../Data/Kommuneliste.json"
 import Style from "./KommuneOption.module.css"
 
 
-interface OptionProps{
-    SelectedKommune: string | undefined
-    onSelectChangeHandler: FormEventHandler | undefined
-}
+
 
 /**
  * Dropdown med kommunenavn i alfabetisk rekkefølge, hver option har en value tilsvarende kommunekoden.

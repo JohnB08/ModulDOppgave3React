@@ -1,13 +1,7 @@
 
-import {  MouseEventHandler, ReactElement } from "react"
+import { ButtonProps } from "../../Types/Types"
 import Style from "./Button.module.css"
 
-
-interface ButtonProps {
-    buttonType: "Filled" | "Link"| "none",
-    buttonText: string | ReactElement,
-    onClick: MouseEventHandler | undefined
-}
 
 /**
  * Knapp, har tre forskjellige stylinger basert på bruk.
