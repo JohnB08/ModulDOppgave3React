@@ -14,15 +14,23 @@ interface FilterProps{
     onChangeHandlerInputFieldOrgNr: ChangeEventHandler | undefined
     onSelectHandler: FormEventHandler | undefined
     SelectedKommune: string | undefined
+    nameInputError: {
+        isError: boolean
+        errorMessage: string | undefined
+    }
+      orgInputError: {
+        isError: boolean
+        errorMessage: string | undefined
+    }
 }
 
 
-export const FilterContainer = ({onClickSearch, onClickReset, onChangeHandlerDateTo, onChangeHandlerDateFrom, onChangeHandlerInputFieldName, onChangeHandlerInputFieldOrgNr,  onSelectHandler, SelectedKommune}: FilterProps) =>{
+export const FilterContainer = ({onClickSearch, onClickReset, onChangeHandlerDateTo, onChangeHandlerDateFrom, onChangeHandlerInputFieldName, onChangeHandlerInputFieldOrgNr,  onSelectHandler, SelectedKommune, nameInputError, orgInputError}: FilterProps) =>{
     return(
         <div className={Style.FilterContainer}>
             <h3>Avansert søk, med valgfri filtrering: </h3>
             <div className={Style.NameInputContainer}>
-                <InputField placeholder="OrganisasjonsNavn..." name="Navn: " onChangeFunction={onChangeHandlerInputFieldName}></InputField>
+                <InputField placeholder="OrganisasjonsNavn..." name="Navn: " onChangeFunction={onChangeHandlerInputFieldName} error={nameInputError}></InputField>
                 <Button buttonType="Filled" buttonText={"Søk"} onClick={onClickSearch}></Button>
                 <Button buttonType="Filled" buttonText={"Reset"} onClick={onClickReset}></Button>
             </div>
@@ -32,7 +40,7 @@ export const FilterContainer = ({onClickSearch, onClickReset, onChangeHandlerDat
                 <DateSelector toOrFrom="to" onChangeFunction={onChangeHandlerDateTo}></DateSelector>
             </div>
             <div className={Style.OrgNrInputContainer}>
-                <InputField placeholder="Organisasjonsnr..." name="OrgNr: " onChangeFunction={onChangeHandlerInputFieldOrgNr}></InputField>
+                <InputField placeholder="Organisasjonsnr..." name="OrgNr: " onChangeFunction={onChangeHandlerInputFieldOrgNr} error={orgInputError}></InputField>
                 <Button buttonType="Filled" buttonText={"Søk"} onClick={onClickSearch}></Button>
                 <Button buttonType="Filled" buttonText={"Reset"} onClick={onClickReset}></Button>
             </div>

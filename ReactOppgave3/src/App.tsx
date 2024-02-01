@@ -16,12 +16,20 @@ export default function App() {
     page: any
   }
 
+  type errorMessage = {
+    isError: boolean
+    errorMessage: string|undefined
+  }
+
   const [name, setName] = useState<string|undefined>("")
   const [orgnr, setOrgNr] = useState<string|undefined>()
   const [startdate, setStartDate] = useState<string|undefined>("")
   const [endDate, setEndDate] = useState<string|undefined>("")
   const [kommuneCode, setKommuneCode] = useState<string|undefined>("")
   const [pageState, setPageState] = useState<string|undefined>("Home")
+  const [inputError, setInputError] = useState<errorMessage>({isError: false, errorMessage: ""})
+  const [nameInputError, setNameInputError] = useState<errorMessage>({isError: false, errorMessage: ""})
+  const [orgInputError, setOrgInputError] = useState<errorMessage>({isError: false, errorMessage: ""})
   const mainUrl = "https://data.brreg.no/enhetsregisteret/api/enheter?size=10"
   const [url, setUrl] = useState(mainUrl)
   const {data, error, isLoading} = useFetchApi<MainData>(url, undefined)
@@ -38,7 +46,7 @@ export default function App() {
     let potInput = event.target.value
     if (potInput.length > 180) return
     let needClean = sanitizeList.test(potInput)
-    needClean ? event.target.value = "" : parseInt(potInput) ? newOrgNr(event) : (setName(potInput), console.log("nytt navn: ", potInput), console.log(url))
+    needClean ? setInputError({isError: true, errorMessage: "Contains illegal Characters"}) : parseInt(potInput) ? newOrgNr(event) : (setName(potInput), setInputError({isError: false, errorMessage: ""}))
   }
 
   /**
@@ -48,7 +56,7 @@ export default function App() {
   const newName = (event: ChangeEvent<HTMLInputElement>) =>{
     let potNewName = event.target.value
     let needClean = sanitizeList.test(potNewName)
-    needClean ? event.target.value = "" : setName(potNewName)
+    needClean ? setNameInputError({isError: true, errorMessage: "Contains illegal Characters"}) : (setName(potNewName), setNameInputError({isError: false, errorMessage: ""}))
   }
   /**
    * Oppdaterer orgnr basert på inputfelt
@@ -56,8 +64,12 @@ export default function App() {
    */
   const newOrgNr = (event: ChangeEvent<HTMLInputElement>)=>{
   let potOrgNr = event.target.value
-  potOrgNr.length === 9 ? setOrgNr(potOrgNr) : null
-  console.log("Nytt orgnr: ", potOrgNr)
+  if (pageState === "Home")
+  {
+    potOrgNr.length === 9 ? (setOrgNr(potOrgNr), setInputError({isError: false, errorMessage: ""}) ): setInputError({isError: true, errorMessage: "Make sure OrgNr is exacly 9 numbers long"})
+  } else {
+    potOrgNr.length === 9 ? (setOrgNr(potOrgNr), setOrgInputError({isError: false, errorMessage: ""}) ): setOrgInputError({isError: true, errorMessage: "Make sure OrgNr is exacly 9 numbers long"})
+  }
   }
 
   /**
@@ -97,6 +109,7 @@ export default function App() {
       setStartDate("")
       setKommuneCode("")
       setOrgNr("")
+      pageState === "Home" ? setInputError({isError: false, errorMessage: ""}) : (setNameInputError({isError: false, errorMessage: ""}), setOrgInputError({isError: false, errorMessage: ""}))
       setUrl(mainUrl)
     }
 
@@ -147,7 +160,8 @@ export default function App() {
     }
     
   /**
-   * oppdaterer url med queries
+   * oppdaterer url med queries.
+   * Har jeg tid vil jeg heller gjøre dette med queries.
    */
 const updateApiData = () =>{
     let addedName = name?  `&navn=${name}` : name
@@ -163,8 +177,8 @@ const updateApiData = () =>{
   return(
     <>
     <NavBar homeBtnHandler={setHome} advancedSearchHandler={setAdvanced}></NavBar>
-    {pageState === "Home" ? <BasicSearch onChangeInputField={readInput} onClickHandler={updateApiData}></BasicSearch> : ""}
-    {pageState === "Advanced" ? <FilterContainer onClickReset={resetFilters} onClickSearch={updateApiData} onChangeHandlerDateTo={updateEndDate} onChangeHandlerDateFrom={updateStartDate} onChangeHandlerInputFieldName={newName} onChangeHandlerInputFieldOrgNr={newOrgNr} onSelectHandler={updateKommuneCode} SelectedKommune={kommuneCode}></FilterContainer> : ""}
+    {pageState === "Home" ? <BasicSearch onChangeInputField={readInput} onClickHandler={updateApiData} inputError={inputError}></BasicSearch> : ""}
+    {pageState === "Advanced" ? <FilterContainer onClickReset={resetFilters} onClickSearch={updateApiData} onChangeHandlerDateTo={updateEndDate} onChangeHandlerDateFrom={updateStartDate} onChangeHandlerInputFieldName={newName} onChangeHandlerInputFieldOrgNr={newOrgNr} onSelectHandler={updateKommuneCode} SelectedKommune={kommuneCode} nameInputError={nameInputError} orgInputError={orgInputError}></FilterContainer> : ""}
     {isLoading? "" : error? {error} : data?._embedded ? <OutputField data={data._embedded.enheter} nextHandlerFunction={()=>nextPageHandler(data)} prevHandlerFunction={()=>prevPageHandler(data)} startHandlerFunction={()=>firstPageHandler(data)} endHandlerFunction={()=>lastPageHandler(data)}></OutputField> : <p>Ingen Resultat</p>}
     
     </>
