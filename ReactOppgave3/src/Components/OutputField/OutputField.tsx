@@ -1,16 +1,25 @@
-import { MouseEventHandler } from "react"
+import { MouseEventHandler, useState } from "react"
 import { Button } from "../Button/Button"
 import Style from "./OutputField.module.css"
 
 
 interface BedriftData {
     antallAnsatte: number
-    forretningsadresse: {
-        adresse: string[]
-        kommune: string
+    /* Det hadde holdt med kun forretningsadresse??? */
+    forretningsadresse?: {
+        adresse?: string[]
+        kommune?: string
         land: string
         landkode: string
-        postnummer: string
+        postnummer?: string
+        poststed?: string
+    }
+    /* Det at noen ekstremt få er lagret med postadresse i steden for
+    med forretningsadresse føles ut som er gjort bare for hat. */
+    postadresse?:{
+        adresse: string[]
+        land: string
+        landkode: string
         poststed: string
     }
     institusjonellSektorkode: {
@@ -19,7 +28,7 @@ interface BedriftData {
     }
     konkurs: boolean
     maalform: string
-    naeringskode1: {
+    naeringskode1?: {
         beskrivelse: string
         kode: string
     }
@@ -34,7 +43,7 @@ interface BedriftData {
         }
     }
     organisasjonsnummer: string
-    registreringsdatoHenhetsregisteret: string
+    registreringsdatoEnhetsregisteret: string
     registrertIForetaksregisteret: boolean
     registrertIFrivillighetsregisteret: boolean
     registrertIMvaregisteret: boolean
@@ -59,6 +68,19 @@ interface OutputProps {
 
 
 export const OutputField = ({data, startHandlerFunction, prevHandlerFunction, nextHandlerFunction, endHandlerFunction}: OutputProps) =>{
+    const [displayCurrentBedrift, setDisplay] = useState("")
+    const displayBedriftInfo = (data:BedriftData) =>{
+        return (
+            <div className={Style.BedriftsData}>
+                <h2>{data.navn}</h2>
+                <p>Om: {data.naeringskode1?.beskrivelse}</p>
+                <p>Antall Ansatte: {data.antallAnsatte}</p>
+                <p>Først registrert: {data.registreringsdatoEnhetsregisteret}</p>
+                <p>Konkurs: {data.konkurs ? "Ja" : "Nei"}</p>
+            </div>
+        )
+    }
+
     return (
         <>
     <table className={Style.ContentTable}>
@@ -73,12 +95,13 @@ export const OutputField = ({data, startHandlerFunction, prevHandlerFunction, ne
                 PostNummer/PostSted: 
             </th>
         </tr>
-        {data.map((entry:BedriftData, i)=>{
+        {data.map((entry:BedriftData)=>{
             return (
-                <tr className={Style.ContentContainer} key={i}>
+                <tr className={Style.ContentContainer} key={entry.organisasjonsnummer}>
                 <td>{entry.organisasjonsnummer}</td>
-                <td>{entry.navn}</td>
-                <td>{entry.forretningsadresse.postnummer}/{entry.forretningsadresse.poststed}</td>
+                <td><Button buttonText={entry.navn} buttonType="none" onClick={()=>setDisplay(entry.organisasjonsnummer)}></Button>{displayCurrentBedrift === entry.organisasjonsnummer ? displayBedriftInfo(entry) : ""}</td>
+                {/* HVORFOR HAR DE TO FORSKJELLIGE MÅTER Å LAGRE ADRESSEN PÅ????? */}
+                <td>{entry.forretningsadresse?.landkode === "NO" ? `${entry.forretningsadresse.postnummer}/${entry.forretningsadresse.poststed}` : entry.forretningsadresse ? `${entry.forretningsadresse.land}/${entry.forretningsadresse.landkode}` : `${entry.postadresse?.land}/${entry.postadresse?.landkode}`}</td>
                 </tr>
             )
         })}

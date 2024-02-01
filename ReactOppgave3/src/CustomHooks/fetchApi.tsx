@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 interface ApiResponse<T>{
     data: T|null
     error: any;
+    isLoading: boolean
 }
 const mainUrl = "https://data.brreg.no/enhetsregisteret/api/enheter?size=10"
 /**
@@ -15,6 +16,7 @@ const mainUrl = "https://data.brreg.no/enhetsregisteret/api/enheter?size=10"
 export function useFetchApi<T>(url: string, options: any): ApiResponse<T>{
     const [data, setData] = useState<T|null>(null)
     const [error, setError] = useState<any>(null)
+    const isLoading = data===null && error===null ? true : false
 
     useEffect(()=>{
         const fetchApi = async()=>{
@@ -29,5 +31,5 @@ export function useFetchApi<T>(url: string, options: any): ApiResponse<T>{
         }
         fetchApi();
     }, [url])
-    return {data, error}
+    return {data, error, isLoading}
 }
