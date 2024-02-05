@@ -8,11 +8,11 @@ import Style from "./Button.module.css"
  * @param buttonType,  velger class basert på input
  * @returns 
  */
-export const Button = ({buttonType, buttonText, onClick}: ButtonProps) =>{
+export const Button = ({buttonType, buttonText, value, onClick}: ButtonProps) =>{
     const classNames = ["button", buttonType]
     const adjustedClassNames = classNames.map(name=>{return Style[name]
     }).join(" ")
 return (
-    <button onClick={onClick} className={adjustedClassNames}>{buttonText}</button>
+    <button onClick={onClick} className={adjustedClassNames} value={value}>{buttonText}</button>
 )
 }

@@ -8,14 +8,14 @@ import Style from "./NavBar.module.css"
  * @param param0 
  * @returns 
  */
-export const NavBar = ({homeBtnHandler, advancedSearchHandler}: NavBarProps) =>{
+export const NavBar = ({homeBtnHandler, advancedSearchHandler, searchHistoryHandler}: NavBarProps) =>{
     return(
         <div className={Style.NavBar}>
-            <Button buttonText={<Logo></Logo>} buttonType="none" onClick={homeBtnHandler}></Button>
+            <Button buttonText={<Logo></Logo>} buttonType="none" onClick={homeBtnHandler} value={""}></Button>
             <div className={Style.NavButtonContainer}>
-                <Button buttonText={"Home"} buttonType="Link" onClick={homeBtnHandler}></Button>
-                <Button buttonText={"Advanced Search"} buttonType="Link" onClick={advancedSearchHandler}></Button>
-                <Button buttonText={"Search History"} buttonType="Link" onClick={undefined}></Button>
+                <Button buttonText={"Home"} buttonType="Link" onClick={homeBtnHandler} value={""}></Button>
+                <Button buttonText={"Advanced Search"} buttonType="Link" onClick={advancedSearchHandler} value={""}></Button>
+                <Button buttonText={"Search History"} buttonType="Link" onClick={searchHistoryHandler} value={""}></Button>
             </div>
         </div>
     )

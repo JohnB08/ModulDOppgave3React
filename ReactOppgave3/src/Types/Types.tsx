@@ -9,11 +9,16 @@ export interface BasicSearchProp{
     }
 }
 
+export type LocalData = string[][]
+
 export interface ButtonProps {
     buttonType: "Filled" | "Link"| "none",
     buttonText: string | ReactElement,
+    value: string
     onClick: MouseEventHandler | undefined
 }
+
+export type TargetButton = ButtonProps & EventTarget
 
 export interface DateProps{
     toOrFrom: "to" | "from"
@@ -50,6 +55,11 @@ export interface FilterProps{
     }
 }
 
+export interface SearchHistoryProps{
+    localData: LocalData
+    onClickHandler: MouseEventHandler
+}
+
 export interface InputProps{
     placeholder: string | undefined
     name: string | undefined
@@ -68,6 +78,7 @@ export interface OptionProps{
 export interface NavBarProps{
     homeBtnHandler: MouseEventHandler | undefined
     advancedSearchHandler: MouseEventHandler | undefined
+    searchHistoryHandler: MouseEventHandler | undefined
 }
 
 export interface BedriftData {

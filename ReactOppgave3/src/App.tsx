@@ -1,18 +1,23 @@
 
 import './App.css'
-import { errorMessage, MainData } from './Types/Types'
+import { ButtonProps, errorMessage, LocalData, MainData, TargetButton } from './Types/Types'
 import { BasicSearch } from './Components/BasicSearch/BasicSearch'
 import { FilterContainer } from './Components/FilterContainer/FilterContainer'
 import { NavBar } from './Components/NavBar/NavBar'
 import { OutputField } from './Components/OutputField/OutputField'
 import { useFetchApi } from './CustomHooks/fetchApi'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, MouseEvent, MouseEventHandler, useState } from 'react'
+import { needClean } from './Util/Util.tsx'
+import { SearchHistory } from './Components/SearchHistory/SearchHistory.tsx'
+import { updateLocalStorage } from './CustomHooks/updateLocalStorage.tsx'
 
 export default function App() {
 
 
   const emptyError: errorMessage = {isError: false, errorMessage: ""}
-
+  const localStorageData = localStorage.getItem("bedriftSøkSearchHistory") ? localStorage.getItem("bedriftSøkSearchHistory") : null
+  const emptyStringArray: LocalData = []
+  const parsedData: LocalData = localStorageData ? JSON.parse(localStorageData) : emptyStringArray
   const [name, setName] = useState<string|undefined>("")
   const [orgnr, setOrgNr] = useState<string|undefined>()
   const [startdate, setStartDate] = useState<string|undefined>("")
@@ -23,9 +28,24 @@ export default function App() {
   const [nameInputError, setNameInputError] = useState<errorMessage>(emptyError)
   const [orgInputError, setOrgInputError] = useState<errorMessage>(emptyError)
   const mainUrl = "https://data.brreg.no/enhetsregisteret/api/enheter?size=10"
+  const [currentLocalData, setCurrentLocalData] = useState(parsedData)
   const [url, setUrl] = useState(mainUrl)
   const {data, error, isLoading} = useFetchApi<MainData>(url, undefined)
-  const sanitizeList = /[{!"£$#¤%&/()=?+´`}]/;
+  const [localData] = updateLocalStorage(currentLocalData)
+
+
+    /**
+   * resetter alle søkeparametere.
+   */
+  const resetFilters=()=>{
+      setName("")
+      setEndDate("")
+      setStartDate("")
+      setKommuneCode("")
+      setOrgNr("")
+      pageState === "Home" ? setInputError({isError: false, errorMessage: ""}) : (setNameInputError({isError: false, errorMessage: ""}), setOrgInputError({isError: false, errorMessage: ""}))
+      setUrl(mainUrl)
+    }
 
   
   /**
@@ -34,24 +54,22 @@ export default function App() {
    * @returns kjører enten newOrgNr() eller setName() basert på input
    */
   const readInput = (event: ChangeEvent<HTMLInputElement>) =>{
-    event.target.value === "" ? (setOrgNr(""), setName(""), setUrl(mainUrl)) : event.target.value
+    event.target.value === "" ? resetFilters() : event.target.value
     let potInput = event.target.value
     if (potInput.length > 180) return
-    let needClean = sanitizeList.test(potInput)
-    needClean ? setInputError({isError: true, errorMessage: "Contains illegal Characters"}) : parseInt(potInput) ? newOrgNr(event) : (setName(potInput), setInputError(emptyError))
+    needClean(potInput) ? setInputError({isError: true, errorMessage: "Contains illegal Characters"}) : parseInt(potInput) ? newOrgNr(event) : (setName(potInput), setInputError(emptyError))
   }
 
   /**
-   * Oppdaterer name basert på inputfelt
+   * Oppdaterer name basert på inputfelt i advanced
    * @param event 
    */
   const newName = (event: ChangeEvent<HTMLInputElement>) =>{
     let potNewName = event.target.value
-    let needClean = sanitizeList.test(potNewName)
-    needClean ? setNameInputError({isError: true, errorMessage: "Contains illegal Characters"}) : (setName(potNewName), setNameInputError(emptyError))
+    needClean(potNewName) ? setNameInputError({isError: true, errorMessage: "Contains illegal Characters"}) : (setName(potNewName), setNameInputError(emptyError))
   }
   /**
-   * Oppdaterer orgnr basert på inputfelt
+   * Oppdaterer orgnr basert på inputfelt i advanced eller home
    * @param event 
    */
   const newOrgNr = (event: ChangeEvent<HTMLInputElement>)=>{
@@ -70,7 +88,6 @@ export default function App() {
    */
   const updateStartDate = (event: ChangeEvent<HTMLInputElement>) =>{
       setStartDate(event.target.value)
-      console.log(startdate)
     }
 
   /**
@@ -79,7 +96,6 @@ export default function App() {
    */
   const updateEndDate = (event:ChangeEvent<HTMLInputElement>)=>{
       setEndDate(event.target.value)
-      console.log(endDate)
     }
 
   /**
@@ -88,22 +104,19 @@ export default function App() {
    */
   const updateKommuneCode = (event:ChangeEvent<HTMLInputElement>)=>{
       setKommuneCode(event.target.value)
-      console.log(kommuneCode)
     }
 
 
-  /**
-   * resetter alle søkeparametere.
-   */
-  const resetFilters=()=>{
-      setName("")
-      setEndDate("")
-      setStartDate("")
-      setKommuneCode("")
-      setOrgNr("")
-      pageState === "Home" ? setInputError({isError: false, errorMessage: ""}) : (setNameInputError({isError: false, errorMessage: ""}), setOrgInputError({isError: false, errorMessage: ""}))
-      setUrl(mainUrl)
-    }
+    /**
+     * Funksjon som oppdaterer url til value til knappen som blir trykt. 
+     * her må jeg definere event target som en HTMLButtonElement type for at .value skal bli godkjent. 
+     * @param event 
+     */
+  const updateUrlHistory = (event:MouseEvent) =>{
+    const button = event.target as HTMLButtonElement
+    setUrl(button.value)
+  }
+
 
   /**
    * Går til neste side hvis det er flere sider å vise.
@@ -150,6 +163,19 @@ export default function App() {
   const setAdvanced = () =>{
       setPageState("Advanced")
     }
+
+  const setSearch = () =>{
+    setPageState("SearchHistory")
+  }
+
+
+  const localStorageHandler = (url: string)=>{
+    localData.length >= 5 ? localData.shift() : localData
+    localData.push([orgnr? orgnr : "", name? name : startdate ? startdate : "", url, new Date().toDateString()])
+    console.log(localData)
+    setCurrentLocalData(localData)
+    
+  }
     
   /**
    * oppdaterer url med queries.
@@ -163,14 +189,15 @@ const updateApiData = () =>{
     let addedKommuneCode = kommuneCode? `&kommunenummer=${kommuneCode}` : kommuneCode
     let newUrl = `${mainUrl}${addedName ? addedName : ""}${addedOrgNr ? addedOrgNr : ""}${addedStartDate? addedStartDate: ""}${addedEndDate? addedEndDate: ""}${addedKommuneCode?addedKommuneCode:""}`
     setUrl(newUrl)
+    localStorageHandler(newUrl)
   }
-  console.log(data)
 
   return(
     <>
-    <NavBar homeBtnHandler={setHome} advancedSearchHandler={setAdvanced}></NavBar>
+    <NavBar homeBtnHandler={setHome} advancedSearchHandler={setAdvanced} searchHistoryHandler={setSearch}></NavBar>
     {pageState === "Home" ? <BasicSearch onChangeInputField={readInput} onClickHandler={updateApiData} inputError={inputError}></BasicSearch> : ""}
     {pageState === "Advanced" ? <FilterContainer onClickReset={resetFilters} onClickSearch={updateApiData} onChangeHandlerDateTo={updateEndDate} onChangeHandlerDateFrom={updateStartDate} onChangeHandlerInputFieldName={newName} onChangeHandlerInputFieldOrgNr={newOrgNr} onSelectHandler={updateKommuneCode} SelectedKommune={kommuneCode} nameInputError={nameInputError} orgInputError={orgInputError}></FilterContainer> : ""}
+    {pageState === "SearchHistory" ? <SearchHistory localData={localData} onClickHandler={updateUrlHistory}></SearchHistory> : ""}
     {isLoading? "" : error? {error} : data?._embedded ? <OutputField data={data._embedded.enheter} nextHandlerFunction={()=>nextPageHandler(data)} prevHandlerFunction={()=>prevPageHandler(data)} startHandlerFunction={()=>firstPageHandler(data)} endHandlerFunction={()=>lastPageHandler(data)}></OutputField> : <p>Ingen Resultat</p>}
     
     </>
