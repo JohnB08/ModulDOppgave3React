@@ -20,7 +20,7 @@ export const BasicSearch = ({onChangeInputField, onClickHandler, inputError}: Ba
         <h3>Enkelt søk med Organisasjonsnavn, eller Organisasjonsnr: </h3>
         <div className={Style.SearchContainer}>
         <InputField placeholder="Navn eller Nr..." name="Navn eller OrgNr: " onChangeFunction={onChangeInputField} error={inputError}></InputField>
-        <Button buttonText="Søk" buttonType="Filled" onClick={onClickHandler}></Button>
+        <Button buttonText="Søk" buttonType="Filled" onClick={onClickHandler} value=""></Button>
         </div>
         </div>
         </>

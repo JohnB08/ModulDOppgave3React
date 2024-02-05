@@ -47,7 +47,7 @@ export const OutputField = ({data, startHandlerFunction, prevHandlerFunction, ne
             return (
                 <tr className={Style.ContentContainer} key={entry.organisasjonsnummer}>
                 <td>{entry.organisasjonsnummer}</td>
-                <td><Button buttonText={entry.navn} buttonType="none" onClick={()=>setDisplay(entry.organisasjonsnummer)}></Button>{displayCurrentBedrift === entry.organisasjonsnummer ? displayBedriftInfo(entry) : ""}</td>
+                <td><Button buttonText={entry.navn} buttonType="none" onClick={()=>setDisplay(entry.organisasjonsnummer)} value=""></Button>{displayCurrentBedrift === entry.organisasjonsnummer ? displayBedriftInfo(entry) : ""}</td>
                 {/* HVORFOR HAR DE TO FORSKJELLIGE MÅTER Å LAGRE ADRESSEN PÅ????? */}
                 <td>{entry.forretningsadresse?.landkode === "NO" ? `${entry.forretningsadresse.postnummer}/${entry.forretningsadresse.poststed}` : entry.forretningsadresse ? `${entry.forretningsadresse.land}/${entry.forretningsadresse.landkode}` : `${entry.postadresse?.land}/${entry.postadresse?.landkode}`}</td>
                 </tr>
@@ -56,12 +56,12 @@ export const OutputField = ({data, startHandlerFunction, prevHandlerFunction, ne
     </table>
     <div className={Style.ButtonContainer}>
         <div className={Style.StartAndPrev}>
-            <Button buttonText="Start" buttonType="Filled" onClick={startHandlerFunction}></Button>
-            <Button buttonText="Prev" buttonType="Filled" onClick={prevHandlerFunction}></Button>
+            <Button buttonText="Start" buttonType="Filled" onClick={startHandlerFunction} value={""}></Button>
+            <Button buttonText="Prev" buttonType="Filled" onClick={prevHandlerFunction} value={""}></Button>
         </div>
         <div className={Style.NextAndEnd}>
-            <Button buttonText="next" buttonType="Filled" onClick={nextHandlerFunction}></Button>
-            <Button buttonText="End" buttonType="Filled" onClick={endHandlerFunction}></Button>
+            <Button buttonText="next" buttonType="Filled" onClick={nextHandlerFunction} value={""}></Button>
+            <Button buttonText="End" buttonType="Filled" onClick={endHandlerFunction} value={""}></Button>
         </div>
     </div>
     </>

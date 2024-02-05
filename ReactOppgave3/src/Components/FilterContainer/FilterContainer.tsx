@@ -16,8 +16,8 @@ export const FilterContainer = ({onClickSearch, onClickReset, onChangeHandlerDat
             <h3>Avansert søk, med valgfri filtrering: </h3>
             <div className={Style.NameInputContainer}>
                 <InputField placeholder="OrganisasjonsNavn..." name="Navn: " onChangeFunction={onChangeHandlerInputFieldName} error={nameInputError}></InputField>
-                <Button buttonType="Filled" buttonText={"Søk"} onClick={onClickSearch}></Button>
-                <Button buttonType="Filled" buttonText={"Reset"} onClick={onClickReset}></Button>
+                <Button buttonType="Filled" buttonText={"Søk"} onClick={onClickSearch} value={""}></Button>
+                <Button buttonType="Filled" buttonText={"Reset"} onClick={onClickReset} value={""}></Button>
             </div>
             <div className={Style.FilterInputs}>
                 <KommuneOption onSelectChangeHandler={onSelectHandler} SelectedKommune={SelectedKommune}></KommuneOption>
@@ -26,8 +26,8 @@ export const FilterContainer = ({onClickSearch, onClickReset, onChangeHandlerDat
             </div>
             <div className={Style.OrgNrInputContainer}>
                 <InputField placeholder="Organisasjonsnr..." name="OrgNr: " onChangeFunction={onChangeHandlerInputFieldOrgNr} error={orgInputError}></InputField>
-                <Button buttonType="Filled" buttonText={"Søk"} onClick={onClickSearch}></Button>
-                <Button buttonType="Filled" buttonText={"Reset"} onClick={onClickReset}></Button>
+                <Button buttonType="Filled" buttonText={"Søk"} onClick={onClickSearch} value={""}></Button>
+                <Button buttonType="Filled" buttonText={"Reset"} onClick={onClickReset} value={""}></Button>
             </div>
         </div>
     )
