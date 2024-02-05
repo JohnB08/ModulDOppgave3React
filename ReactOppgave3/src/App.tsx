@@ -1,12 +1,12 @@
 
 import './App.css'
-import { ButtonProps, errorMessage, LocalData, MainData, TargetButton } from './Types/Types'
+import { errorMessage, LocalData, MainData} from './Types/Types'
 import { BasicSearch } from './Components/BasicSearch/BasicSearch'
 import { FilterContainer } from './Components/FilterContainer/FilterContainer'
 import { NavBar } from './Components/NavBar/NavBar'
 import { OutputField } from './Components/OutputField/OutputField'
 import { useFetchApi } from './CustomHooks/fetchApi'
-import { ChangeEvent, MouseEvent, MouseEventHandler, useState } from 'react'
+import { ChangeEvent, MouseEvent, useState } from 'react'
 import { needClean } from './Util/Util.tsx'
 import { SearchHistory } from './Components/SearchHistory/SearchHistory.tsx'
 import { updateLocalStorage } from './CustomHooks/updateLocalStorage.tsx'
@@ -168,7 +168,10 @@ export default function App() {
     setPageState("SearchHistory")
   }
 
-
+/**
+ * Funksjon for å håndtere søkehistorikk i local storage. Storer kun 5 values. 
+ * @param url 
+ */
   const localStorageHandler = (url: string)=>{
     localData.length >= 5 ? localData.shift() : localData
     localData.push([orgnr? orgnr : "", name? name : startdate ? startdate : "", url, new Date().toDateString()])

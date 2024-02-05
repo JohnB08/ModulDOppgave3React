@@ -1,5 +1,11 @@
 import { ChangeEventHandler, FormEventHandler, MouseEventHandler, ReactElement } from "react"
 
+
+/* Dette er en liste over all datastruktur som blir brukt i koden. */
+
+/**
+ * Dette er strukturen for alle properties som BasicSearch trenger
+ */
 export interface BasicSearchProp{
     onChangeInputField: ChangeEventHandler | undefined,
     onClickHandler: MouseEventHandler | undefined
@@ -9,8 +15,16 @@ export interface BasicSearchProp{
     }
 }
 
+
+/**
+ * Dette er startstrukturen for LocalData, det som blir storet i localStorage
+ */
 export type LocalData = string[][]
 
+
+/**
+ * Dette er datastrukturen til knappecomponent.
+ */
 export interface ButtonProps {
     buttonType: "Filled" | "Link"| "none",
     buttonText: string | ReactElement,
@@ -18,24 +32,37 @@ export interface ButtonProps {
     onClick: MouseEventHandler | undefined
 }
 
-export type TargetButton = ButtonProps & EventTarget
-
+/**
+ * Dette er dataStrukturen til Date component.
+ */
 export interface DateProps{
     toOrFrom: "to" | "from"
     onChangeFunction: ChangeEventHandler | undefined
 }
 
+
+/**
+ * Dette er strukturen til hvordan hovedataen som kommer inn skal se ut.
+ */
 export interface MainData{
     _embedded: any
     _links: any
     page: any
   }
 
+
+  /**
+   * Dette er strukturen på hvordan errorMessage skal bli passed ned til input
+   */
 export type errorMessage = {
     isError: boolean
     errorMessage: string|undefined
   }
 
+
+  /**
+   * Dette er alle properties til filtersøk komponenten.
+   */
 export interface FilterProps{
     onClickSearch: MouseEventHandler | undefined
     onClickReset: MouseEventHandler | undefined
@@ -55,11 +82,18 @@ export interface FilterProps{
     }
 }
 
+
+/**
+ * Dette er props for SearchHistory Component.
+ */
 export interface SearchHistoryProps{
     localData: LocalData
     onClickHandler: MouseEventHandler
 }
 
+/**
+ * Dette er alle props til Input
+ */
 export interface InputProps{
     placeholder: string | undefined
     name: string | undefined
@@ -70,17 +104,28 @@ export interface InputProps{
     }
 }
 
+
+/**
+ * Dette er props til Option Component
+ */
 export interface OptionProps{
     SelectedKommune: string | undefined
     onSelectChangeHandler: FormEventHandler | undefined
 }
 
+
+/**
+ * Dette er alle props til NavBar
+ */
 export interface NavBarProps{
     homeBtnHandler: MouseEventHandler | undefined
     advancedSearchHandler: MouseEventHandler | undefined
     searchHistoryHandler: MouseEventHandler | undefined
 }
 
+/**
+ * Dette er hvordan BedriftData skal være strukturert fra API.
+ */
 export interface BedriftData {
     antallAnsatte: number
     /* Det hadde holdt med kun forretningsadresse??? */
@@ -136,6 +181,10 @@ export interface BedriftData {
 
 }
 
+
+/**
+ * Dette er alle props som Output trenger.
+ */
 export interface OutputProps {
     data: BedriftData[]
     startHandlerFunction: MouseEventHandler | undefined
