@@ -9,6 +9,10 @@ const fetchApi = async(url) =>{
     return result
 }
 
+
+/**
+ * Fetcher gjeldene kommuneliste fra ssb, separerer ut kommunenavn og kommunekode, sorterer de alfabetisk og lagrer de lokalt i en JSON fil.
+ */
 const fetchAndWrite = async() =>{
     const fetchedData = await fetchApi(url)
     const sanitizedData = []
